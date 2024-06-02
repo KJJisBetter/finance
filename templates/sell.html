@@ -1,0 +1,62 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Sell Stocks
+{% endblock %}
+
+{% block main %}
+    <h1>Sell Stocks</h1>
+    {% if not confirmed %}
+        <form action="/sell" method="post">
+            <div class="mb-3">
+                <label for="symbol">Symbol</label>
+                <select class="form-control mx-auto w-auto" id="symbol" name="symbol" required>
+                    <option value="" disabled selected>Select a symbol</option>
+                    {% for symbol in symbols %}
+                        <option value="{{ symbol }}">{{ symbol }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="mb-3">
+                <label for="shares">Shares</label>
+                <input class="form-control mx-auto w-auto" id="shares" name="shares" placeholder="Shares" type="number" required>
+            </div>
+            <button class="btn btn-primary" type="submit">Sell Stock</button>
+        </form>
+    {% endif %}
+
+    {% if quote %}
+        <div class="mt-4">
+            <h2>Quote for {{ quote["symbol"] }}</h2>
+            <p>Price: {{ price }}</p>
+            <p>Total Sale: {{ total_sale }}</p>
+            <form action="/sell" method="post">
+                <input type="hidden" name="symbol" value="{{ quote["symbol"] }}">
+                <input type="hidden" name="shares" value="{{ shares }}">
+                <input type="hidden" name="total_sale" value="{{ total_sale }}">
+                <input type="hidden" name="confirm" value="yes">
+                <button class="btn btn-success" type="submit">Confirm Sale</button>
+            </form>
+        </div>
+    {% endif %}
+
+    <div class="mt-4">
+        <h2>Your Portfolio</h2>
+        <table class="table table-hover">
+            <tr>
+                <th>Symbol / Price</th>
+                <th>Shares</th>
+                <th>Value</th>
+            </tr>
+            {% for item in portfolio %}
+                <tr>
+                    <td>{{ item.symbol }} / ${{ item.price }}</td>
+                    <td>{{ item.shares }}</td>
+                    <td>${{ "%.2f" | format(item.total) }}</td>
+                </tr>
+            {% endfor %}
+        </table>
+    </div>
+{% endblock %}
+
+

@@ -1,0 +1,39 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    {% if action == "sell" %}
+        Sale Summary
+    {% else %}
+        Purchase Summary
+    {% endif %}
+{% endblock %}
+
+{% block main %}
+    {% if action == "sell" %}
+        <div class="mb-3">
+            <h1>Stock Sale</h1>
+            <h2>Symbol: {{ symbol }}</h2>
+            <h3>Total Sale: {{ total }}</h3>
+        </div>
+        <form action="/confirm_sell" method="post">
+            <input type="hidden" name="symbol" value="{{ symbol }}">
+            <input type="hidden" name="shares" value="{{ shares }}">
+            <input type="hidden" name="total_sale" value="{{ total_sale }}">
+            <button class="btn btn-primary" type="submit">Confirm Sale</button>
+        </form>
+    {% else %}
+        <div class="mb-3">
+            <h1>Stock Purchase</h1>
+            <h2>Symbol: {{ symbol }}</h2>
+            <h3>Total Cost: {{ total }}</h3>
+        </div>
+        <form action="/confirm_buy" method="post">
+            <input type="hidden" name="symbol" value="{{ symbol }}">
+            <input type="hidden" name="shares" value="{{ shares }}">
+            <input type="hidden" name="total_cost" value="{{ total_cost }}">
+            <button class="btn btn-primary" type="submit">Confirm Purchase</button>
+        </form>
+    {% endif %}
+{% endblock %}
+
+<!-- !!had to change my whole app becuse check50 wasnt happy!! -->

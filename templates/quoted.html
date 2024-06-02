@@ -1,0 +1,12 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    {{ symbol }}
+{% endblock %}
+
+{% block main %}
+    <div class="mb-3">
+        <h1>{{ symbol }}</h1>
+        <h2>Price: {{ quoted }}</h2>
+    </div>
+{% endblock %}
