@@ -78,6 +78,22 @@ def account():
 
     return render_template("account.html", user=user_info[0])
 
+@app.route("/delete_account", methods=["POST"])
+@login_required
+def delete_account():
+    user_id = session["user_id"]
+
+    # Implement the logic to delete the user's account from the database
+    db.execute("DELETE FROM users WHERE id = :user_id", user_id=user_id)
+    db.execute("DELETE FROM portfolio WHERE user_id = :user_id", user_id=user_id)
+    db.execute("DELETE FROM transactions WHERE user_id = :user_id", user_id=user_id)
+
+    # Clear the session and flash a message
+    session.clear()
+    flash("Your account has been deleted successfully.")
+
+    return redirect("/login")
+
 @app.route("/buy", methods=["GET", "POST"])
 @login_required
 def buy():
