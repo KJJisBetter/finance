@@ -9,7 +9,6 @@
     {% if not confirmed %}
         <form action="/sell" method="post">
             <div class="mb-3">
-                <label for="symbol">Symbol</label>
                 <select class="form-control mx-auto w-auto" id="symbol" name="symbol" required>
                     <option value="" disabled selected>Select a symbol</option>
                     {% for symbol in symbols %}
@@ -18,7 +17,6 @@
                 </select>
             </div>
             <div class="mb-3">
-                <label for="shares">Shares</label>
                 <input class="form-control mx-auto w-auto" id="shares" name="shares" placeholder="Shares" type="number" required>
             </div>
             <button class="btn btn-primary" type="submit">Sell Stock</button>
