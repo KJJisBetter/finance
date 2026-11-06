@@ -1,6 +1,6 @@
 blinker==1.8.2
 cachelib==0.13.0
-certifi==2024.6.2
+certifi==2026.10.18
 charset-normalizer==3.3.2
 click==8.1.7
 cs50==9.3.4
